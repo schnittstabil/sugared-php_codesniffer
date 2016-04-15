@@ -3,16 +3,27 @@
 namespace Schnittstabil\Sugared\PHP\CodeSniffer;
 
 use Schnittstabil\ComposerExtra\ComposerExtra;
+use Schnittstabil\FinderByConfig\FinderByConfig;
 
 class CLI extends MultipleStandardsCLI
 {
-    protected $config;
     protected $namespace = 'schnittstabil/sugared-php_codesniffer';
-    protected $defaultConfig = [
-        'presets' => [
+    protected $finderByConfig;
+    protected $defaultConfig;
+    protected $config;
+
+    public function __construct(callable $finderByConfig = null)
+    {
+        if ($finderByConfig === null) {
+            $finderByConfig = new FinderByConfig();
+        }
+        $this->finderByConfig = $finderByConfig;
+
+        $this->defaultConfig = new \stdClass();
+        $this->defaultConfig->presets = [
             'Schnittstabil\\Sugared\\PHP\\CodeSniffer\\DefaultPreset::get',
-        ],
-    ];
+        ];
+    }
 
     protected function getConfig($path = null, $default = null)
     {
@@ -51,8 +62,9 @@ class CLI extends MultipleStandardsCLI
         }
 
         $files = $this->getConfig('files', []);
-        foreach ((array) $files as $file) {
-            $this->processUnknownArgument($file, -1);
+
+        foreach (call_user_func($this->finderByConfig, $files) as $file) {
+            $this->processUnknownArgument($file->getPathname(), -1);
         }
     }
 
@@ -66,6 +78,10 @@ class CLI extends MultipleStandardsCLI
                 case 'presets':
                 case 'files':
                     continue 2;
+                case 'default_standard':
+                    if (is_array($value)) {
+                        $value = implode(',', $value);
+                    }
             }
 
             \PHP_CodeSniffer::setConfigData($key, $value, true);

@@ -10,6 +10,8 @@ sudo: false
 install:
   - composer selfupdate
   - composer install
+  - composer global require schnittstabil/sugared-phpmd fabpot/php-cs-fixer
+  - export PATH=$PATH:`composer global config bin-dir --absolute`
 
 script:
   - composer test

@@ -4,6 +4,9 @@ namespace Schnittstabil\Sugared\PHP\CodeSniffer;
 
 class CLITest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function testProcessConfigShouldNotSetFiles()
     {
         $sut = new CLI();
@@ -16,14 +19,24 @@ class CLITest extends \PHPUnit_Framework_TestCase
         $this->assertSame(null, \PHP_CodeSniffer::getConfigData('files'));
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function testgetCommandLineValuesShouldReturnFiles()
     {
         $sut = new CLI();
         $sut->setCommandLineValues([]);
         $values = $sut->getCommandLineValues();
-        $expected = array_map('realpath', DefaultPreset::get()['files']);
+        $expected = array_map('realpath', array_merge(
+            glob('src/*'),
+            glob('tests/*.php'),
+            glob('tests/fixtures/*.php')
+        ));
+        sort($expected);
 
-        $this->assertSame($expected, $values['files']);
+        $actual = $values['files'];
+        sort($actual);
+        $this->assertSame($expected, $actual);
     }
 
     public function testgetCommandLineValuesShouldReturnOverwritenFiles()
@@ -44,9 +57,12 @@ class CLITest extends \PHPUnit_Framework_TestCase
         ]);
         $values = $sut->getCommandLineValues();
 
-        $this->assertSame([realpath('tests')], $values['files']);
+        $this->assertSame([realpath('tests/fixtures/a.php')], $values['files']);
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public function testProcessConfigShouldNotSetPresets()
     {
         $sut = new CLI();

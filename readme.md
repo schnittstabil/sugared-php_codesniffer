@@ -32,6 +32,8 @@ Instead of running `phpcs` with all its options, just run `sugared-phpcs` - that
 
 You may overwrite some options by putting it in your `composer.json`.
 
+See [schnittstabil/finder-by-config](https://github.com/schnittstabil/finder-by-config) for details of the `files` options.
+
 Some of the default settings:
 ```json
 {
@@ -41,8 +43,20 @@ Some of the default settings:
     },
     "extra": {
         "schnittstabil\/sugared-php_codesniffer": {
-            "default_standard": "PSR1,PSR2",
-            "files": ["src", "tests"]
+            "default_standard": ["PSR1", "PSR2"],
+            "files": {
+                "in": ["."],
+                "name": ["*.php"],
+                "files": true,
+                "exclude": [
+                    "build",
+                    "bower_components",
+                    "node_modules",
+                    "vendor"
+                ],
+                "ignoreDotFiles": true,
+                "ignoreVCS": true
+            }
         }
     }
 }
