@@ -20,7 +20,7 @@
         "php": ">=5.6.0",
         "schnittstabil/composer-extra": "^1.0",
         "schnittstabil/finder-by-config": "^0.1",
-        "squizlabs/php_codesniffer": "^2.6"
+        "squizlabs/php_codesniffer": "^2.6.1"
     },
     "require-dev": {
         "schnittstabil/sugared-phpunit": "^1.0"

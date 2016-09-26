@@ -5,7 +5,7 @@ namespace Schnittstabil\Sugared\PHP\CodeSniffer;
 use Schnittstabil\ComposerExtra\ComposerExtra;
 use Schnittstabil\FinderByConfig\FinderByConfig;
 
-class CLI extends MultipleStandardsCLI
+class CLI extends \PHP_CodeSniffer_CLI
 {
     protected $namespace = 'schnittstabil/sugared-php_codesniffer';
     protected $finderByConfig;
