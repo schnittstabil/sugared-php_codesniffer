@@ -1,13 +1,13 @@
 <?php
 
-namespace Schnittstabil\Sugared\PHP\CodeSniffer;
+namespace SugaredRim\PHP\CodeSniffer;
 
 use Schnittstabil\ComposerExtra\ComposerExtra;
 use Schnittstabil\FinderByConfig\FinderByConfig;
 
 class CLI extends \PHP_CodeSniffer_CLI
 {
-    protected $namespace = 'schnittstabil/sugared-php_codesniffer';
+    protected $namespace = 'sugared-rim/php_codesniffer';
     protected $finderByConfig;
     protected $defaultConfig;
     protected $config;
@@ -21,7 +21,7 @@ class CLI extends \PHP_CodeSniffer_CLI
 
         $this->defaultConfig = new \stdClass();
         $this->defaultConfig->presets = [
-            'Schnittstabil\\Sugared\\PHP\\CodeSniffer\\DefaultPreset::get',
+            'SugaredRim\\PHP\\CodeSniffer\\DefaultPreset::get',
         ];
     }
 

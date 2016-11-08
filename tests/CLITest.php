@@ -1,6 +1,6 @@
 <?php
 
-namespace Schnittstabil\Sugared\PHP\CodeSniffer;
+namespace SugaredRim\PHP\CodeSniffer;
 
 class CLITest extends \PHPUnit_Framework_TestCase
 {
@@ -42,10 +42,10 @@ class CLITest extends \PHPUnit_Framework_TestCase
     public function testgetCommandLineValuesShouldReturnOverwritenFiles()
     {
         $sut = new CLI();
-        $sut->setCommandLineValues(['sugared-phpcs']);
+        $sut->setCommandLineValues(['sugared-rim-phpcs']);
         $values = $sut->getCommandLineValues();
 
-        $this->assertSame([realpath('sugared-phpcs')], $values['files']);
+        $this->assertSame([realpath('sugared-rim-phpcs')], $values['files']);
     }
 
     public function testgetCommandLineValuesShouldReturnNamespacedConfig()
@@ -53,7 +53,7 @@ class CLITest extends \PHPUnit_Framework_TestCase
         $sut = new CLI();
         $sut->setCommandLineValues([
             '--report=summary',
-            '--namespace=schnittstabil/sugared-php_codesniffer test namespace',
+            '--namespace=sugared-rim/php_codesniffer test namespace',
         ]);
         $values = $sut->getCommandLineValues();
 

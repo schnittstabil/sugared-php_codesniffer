@@ -14,4 +14,4 @@ foreach ([
 
 unset($file);
 
-(new Schnittstabil\Sugared\PHP\CodeSniffer\CLI())->runphpcs();
+(new SugaredRim\PHP\CodeSniffer\CLI())->runphpcbf();

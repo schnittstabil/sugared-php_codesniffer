@@ -1,6 +1,6 @@
 <?php
 
-namespace Schnittstabil\Sugared\PHP\CodeSniffer;
+namespace SugaredRim\PHP\CodeSniffer;
 
 class DefaultPreset
 {

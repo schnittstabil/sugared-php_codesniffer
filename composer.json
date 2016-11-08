@@ -1,9 +1,9 @@
 {
-    "name": "schnittstabil/sugared-php_codesniffer",
+    "name": "sugared-rim/php_codesniffer",
     "type": "library",
     "description": "PHP_CodeSniffer sweetened with ease",
     "license": "MIT",
-    "keywords": ["sugared", "preconfigured", "php_codesniffer", "phpcs", "standards"],
+    "keywords": ["sugared", "preconfigured", "php_codesniffer", "phpcs", "standards", "sugared-rim"],
     "authors": [
         {
             "name": "Michael Mayer",
@@ -11,10 +11,10 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Schnittstabil\\Sugared\\PHP\\CodeSniffer\\": "src" }
+        "psr-4": { "SugaredRim\\PHP\\CodeSniffer\\": "src" }
     },
     "autoload-dev": {
-        "psr-4": { "Schnittstabil\\Sugared\\PHP\\CodeSniffer\\": "tests" }
+        "psr-4": { "SugaredRim\\PHP\\CodeSniffer\\": "tests" }
     },
     "require": {
         "php": ">=5.6.0",
@@ -23,10 +23,10 @@
         "squizlabs/php_codesniffer": "^2.6.1"
     },
     "require-dev": {
-        "schnittstabil/sugared-phpunit": "^1.0"
+        "sugared-rim/phpunit": "^2.0"
     },
     "extra": {
-        "schnittstabil\/sugared-php_codesniffer test namespace": {
+        "sugared-rim/php_codesniffer test namespace": {
             "default_standard": ["PSR1", "PSR2"],
             "files": {
                 "in": "tests/fixtures"
@@ -34,8 +34,8 @@
         }
     },
     "bin": [
-        "sugared-phpcbf",
-        "sugared-phpcs"
+        "sugared-rim-phpcbf",
+        "sugared-rim-phpcs"
     ],
     "scripts": {
         "clean": "rm -rf build/",
@@ -50,9 +50,11 @@
             "php-cs-fixer fix --dry-run --diff tests"
         ],
         "test": [
-            "sugared-phpunit",
-            "composer lint"
+            "sugared-rim-phpunit",
+            "composer lint",
+            "./sugared-rim-phpcbf --help",
+            "./sugared-rim-phpcs --help"
         ],
-        "travis": "sugared-phpunit"
+        "travis": "sugared-rim-phpunit"
     }
 }
