@@ -2,7 +2,7 @@
 
 namespace SugaredRim\PHP\CodeSniffer;
 
-class CLITest extends \PHPUnit_Framework_TestCase
+class CLITest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @SuppressWarnings(PHPMD.StaticAccess)
