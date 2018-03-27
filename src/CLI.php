@@ -2,90 +2,13 @@
 
 namespace SugaredRim\PHP\CodeSniffer;
 
-use Schnittstabil\ComposerExtra\ComposerExtra;
-use Schnittstabil\FinderByConfig\FinderByConfig;
-
 class CLI extends \PHP_CodeSniffer_CLI
 {
-    protected $namespace = 'sugared-rim/php_codesniffer';
-    protected $finderByConfig;
-    protected $defaultConfig;
-    protected $config;
+    use SugaredRimConfigAwareTrait;
 
     public function __construct(callable $finderByConfig = null)
     {
-        if ($finderByConfig === null) {
-            $finderByConfig = new FinderByConfig();
-        }
-        $this->finderByConfig = $finderByConfig;
-
-        $this->defaultConfig = new \stdClass();
-        $this->defaultConfig->presets = [
-            'SugaredRim\\PHP\\CodeSniffer\\DefaultPreset::get',
-        ];
-    }
-
-    protected function getConfig($path = null, $default = null)
-    {
-        if ($this->config === null) {
-            $this->config = new ComposerExtra(
-                $this->namespace,
-                $this->defaultConfig,
-                'presets'
-            );
-        }
-
-        if ($path === null) {
-            $path = array();
-        }
-
-        return $this->config->get($path, $default);
-    }
-
-    public function processLongArgument($arg, $pos)
-    {
-        if (substr($arg, 0, 10) === 'namespace=') {
-            $this->namespace = substr($arg, 10);
-
-            return;
-        }
-
-        parent::processLongArgument($arg, $pos);
-    }
-
-    public function setCommandLineValues($args)
-    {
-        parent::setCommandLineValues($args);
-
-        if (!empty($this->values['files'])) {
-            return;
-        }
-
-        $files = $this->getConfig('files', []);
-
-        foreach (call_user_func($this->finderByConfig, $files) as $file) {
-            $this->processUnknownArgument($file->getPathname(), -1);
-        }
-    }
-
-    /**
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
-    protected function processConfig()
-    {
-        foreach ($this->getConfig() as $key => $value) {
-            switch ($key) {
-                case 'presets':
-                case 'files':
-                    continue 2;
-                case 'default_standard':
-                    if (is_array($value)) {
-                        $value = implode(',', $value);
-                    }
-            }
-
-            \PHP_CodeSniffer::setConfigData($key, $value, true);
-        }
+        $this->sugaredRimSetFinderByConfig($finderByConfig);
     }
 
     /**
@@ -93,7 +16,7 @@ class CLI extends \PHP_CodeSniffer_CLI
      */
     public function runphpcbf()
     {
-        $this->processConfig();
+        $this->sugaredRimProcessConfig();
         parent::runphpcbf();
     }
 
@@ -102,7 +25,7 @@ class CLI extends \PHP_CodeSniffer_CLI
      */
     public function runphpcs()
     {
-        $this->processConfig();
+        $this->sugaredRimProcessConfig();
         parent::runphpcs();
     }
 }

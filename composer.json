@@ -20,10 +20,10 @@
         "php": ">=5.6.0",
         "schnittstabil/composer-extra": "^2.0",
         "schnittstabil/finder-by-config": "^1.0",
-        "squizlabs/php_codesniffer": "^2.6"
+        "squizlabs/php_codesniffer": "^2.6 || 3.0 !=2.8.0 !=3.0.0"
     },
     "require-dev": {
-        "sugared-rim/phpunit": "^6.0"
+        "sugared-rim/phpunit": "^6.0 || ^7.0"
     },
     "extra": {
         "sugared-rim/phpunit": {
@@ -53,10 +53,10 @@
             "php-cs-fixer fix --dry-run --diff tests"
         ],
         "test": [
-            "sugared-rim-phpunit",
-            "composer lint",
             "./sugared-rim-phpcbf --help",
-            "./sugared-rim-phpcs --help"
+            "./sugared-rim-phpcs --help",
+            "sugared-rim-phpunit",
+            "composer lint"
         ],
         "travis": "sugared-rim-phpunit"
     }
